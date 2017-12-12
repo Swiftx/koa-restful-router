@@ -4,13 +4,13 @@ var pathToRegexp = require("path-to-regexp");
 /**
  * 路由转发基类
  */
-var default_1 = /** @class */ (function () {
+var Route = /** @class */ (function () {
     /**
      * 构造函数
      * @param {string} name
      * @param {Resource} resource
      */
-    function default_1(name, resource) {
+    function Route(name, resource) {
         this.name = name;
         this.resource = resource;
     }
@@ -20,7 +20,7 @@ var default_1 = /** @class */ (function () {
      * @param {HttpMethod} method
      * @param {string} path
      */
-    default_1.prototype.init = function (action, method, path) {
+    Route.prototype.init = function (action, method, path) {
         if (path === void 0) { path = ''; }
         this.action = action;
         this.method = method;
@@ -31,7 +31,7 @@ var default_1 = /** @class */ (function () {
      * @param {Application.Request} req
      * @returns {boolean | string}
      */
-    default_1.prototype.regExp = function (req) {
+    Route.prototype.regExp = function (req) {
         if (req.method !== this.method)
             return false;
         var result = this.pathRegexp.exec(req.url);
@@ -46,10 +46,10 @@ var default_1 = /** @class */ (function () {
      * @param {Application.Context} ctx
      * @param {string | undefined} id
      */
-    default_1.prototype.exec = function (ctx, id) {
+    Route.prototype.exec = function (ctx, id) {
         this.action.apply(this.resource, arguments);
     };
-    return default_1;
+    return Route;
 }());
-exports.default = default_1;
+exports.Route = Route;
 //# sourceMappingURL=route.js.map

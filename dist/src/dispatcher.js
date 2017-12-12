@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var interfaces_1 = require("./interfaces");
 var route_1 = require("./route");
-var default_1 = /** @class */ (function () {
-    function default_1() {
+var Dispatcher = /** @class */ (function () {
+    function Dispatcher() {
         /**
          * 路由对象
          * @type {Router[]}
@@ -50,39 +50,39 @@ var default_1 = /** @class */ (function () {
      * @param {string} name
      * @param {Resource} resource
      */
-    default_1.prototype.use = function (name, resource) {
+    Dispatcher.prototype.use = function (name, resource) {
         if ('index' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.index, interfaces_1.HttpMethod.GET);
             this.routes.push(router);
         }
         if ('new' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.new, interfaces_1.HttpMethod.GET, '/new');
             this.routes.push(router);
         }
         if ('create' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.create, interfaces_1.HttpMethod.POST);
             this.routes.push(router);
         }
         if ('show' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.show, interfaces_1.HttpMethod.GET, '/:id');
             this.routes.push(router);
         }
         if ('edit' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.edit, interfaces_1.HttpMethod.GET, '/:id/edit');
             this.routes.push(router);
         }
         if ('put' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.put, interfaces_1.HttpMethod.PUT, '/:id');
             this.routes.push(router);
         }
         if ('destroy' in resource) {
-            var router = new route_1.default(name, resource);
+            var router = new route_1.Route(name, resource);
             router.init(resource.destroy, interfaces_1.HttpMethod.DELETE, '/:id');
             this.routes.push(router);
         }
@@ -91,7 +91,7 @@ var default_1 = /** @class */ (function () {
      * 生成中间件
      * @returns {Function}
      */
-    default_1.prototype.middleware = function () {
+    Dispatcher.prototype.middleware = function () {
         var _this = this;
         var self = this;
         return function (ctx) { return __awaiter(_this, void 0, void 0, function () {
@@ -112,7 +112,7 @@ var default_1 = /** @class */ (function () {
             });
         }); };
     };
-    return default_1;
+    return Dispatcher;
 }());
-exports.default = default_1;
+exports.Dispatcher = Dispatcher;
 //# sourceMappingURL=dispatcher.js.map

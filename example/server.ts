@@ -1,5 +1,5 @@
 import * as Koa from 'koa';
-import Dispatcher from "../src/dispatcher";
+import { Dispatcher } from "../src/dispatcher";
 import Resource from "./resource";
 
 // 创建资源分发器

@@ -5,7 +5,7 @@ import {Context, Request} from "koa";
 /**
  * 路由转发基类
  */
-export default class {
+export class Route {
 
     /**
      * 资源名称
