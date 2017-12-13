@@ -37,11 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var interfaces_1 = require("./interfaces");
 var route_1 = require("./route");
-var Dispatcher = /** @class */ (function () {
-    function Dispatcher() {
+var Router = /** @class */ (function () {
+    function Router() {
         /**
          * 路由对象
-         * @type {Router[]}
+         * @type {Route[]}
          */
         this.routes = [];
     }
@@ -50,7 +50,7 @@ var Dispatcher = /** @class */ (function () {
      * @param {string} name
      * @param {Resource} resource
      */
-    Dispatcher.prototype.use = function (name, resource) {
+    Router.prototype.use = function (name, resource) {
         if ('index' in resource) {
             var router = new route_1.Route(name, resource);
             router.init(resource.index, interfaces_1.HttpMethod.GET);
@@ -91,7 +91,7 @@ var Dispatcher = /** @class */ (function () {
      * 生成中间件
      * @returns {Function}
      */
-    Dispatcher.prototype.middleware = function () {
+    Router.prototype.middleware = function () {
         var _this = this;
         var self = this;
         return function (ctx) { return __awaiter(_this, void 0, void 0, function () {
@@ -112,7 +112,7 @@ var Dispatcher = /** @class */ (function () {
             });
         }); };
     };
-    return Dispatcher;
+    return Router;
 }());
-exports.Dispatcher = Dispatcher;
-//# sourceMappingURL=dispatcher.js.map
+exports.Router = Router;
+//# sourceMappingURL=router.js.map

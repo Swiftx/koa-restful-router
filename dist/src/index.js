@@ -1,5 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var dispatcher_1 = require("./dispatcher");
-exports.Dispatcher = dispatcher_1.Dispatcher;
+var router_1 = require("./router");
+exports.Router = router_1.Router;
 //# sourceMappingURL=index.js.map

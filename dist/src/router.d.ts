@@ -2,10 +2,10 @@
 import { Resource } from "./interfaces";
 import { Route } from './route';
 import { Context } from "koa";
-export declare class Dispatcher {
+export declare class Router {
     /**
      * 路由对象
-     * @type {Router[]}
+     * @type {Route[]}
      */
     protected routes: Array<Route>;
     /**

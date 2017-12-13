@@ -2,11 +2,11 @@ import { HttpMethod, Resource } from "./interfaces";
 import { Route } from './route';
 import { Context } from "koa";
 
-export class Dispatcher {
+export class Router {
 
     /**
      * 路由对象
-     * @type {Router[]}
+     * @type {Route[]}
      */
     protected routes:Array<Route> = [];
 
