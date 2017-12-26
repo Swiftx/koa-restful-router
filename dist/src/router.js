@@ -88,6 +88,16 @@ var Router = /** @class */ (function () {
         }
     };
     /**
+     * 批量注册控制器
+     * @param {Object} resources
+     * @param {string} prefix
+     */
+    Router.prototype.uses = function (resources, prefix) {
+        if (prefix === void 0) { prefix = ''; }
+        for (var i in resources)
+            this.use(prefix + i, resources[i]);
+    };
+    /**
      * 生成中间件
      * @returns {Function}
      */

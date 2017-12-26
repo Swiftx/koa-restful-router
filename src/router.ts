@@ -54,6 +54,16 @@ export class Router {
     }
 
     /**
+     * 批量注册控制器
+     * @param {Object} resources
+     * @param {string} prefix
+     */
+    public uses(resources:Object, prefix:string=''){
+        for(let i in resources)
+            this.use(prefix+i, resources[i]);
+    }
+
+    /**
      * 生成中间件
      * @returns {Function}
      */
