@@ -15,6 +15,12 @@ export declare class Router {
      */
     use(name: string, resource: Resource): void;
     /**
+     * 批量注册控制器
+     * @param {Object} resources
+     * @param {string} prefix
+     */
+    uses(resources: Object, prefix?: string): void;
+    /**
      * 生成中间件
      * @returns {Function}
      */
