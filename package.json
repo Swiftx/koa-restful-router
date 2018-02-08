@@ -1,6 +1,6 @@
 {
   "name": "koa-restful-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -17,14 +17,10 @@
   "devDependencies": {
     "@types/koa": "^2.0.42",
     "@types/node": "^8.0.56",
-    "@types/path-to-regexp": "^1.7.0",
-    "@types/pluralize": "0.0.28",
     "nodemon": "^1.12.5",
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "koa": "^2.4.1",
-    "path-to-regexp": "^2.1.0",
-    "pluralize": "^7.0.0"
+    "raml-path-match": "^2.1.2"
   }
 }
