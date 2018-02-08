@@ -1,82 +1,73 @@
-import { HttpMethod, Resource } from "./interfaces";
-import * as pathToRegexp from "path-to-regexp";
-import {Context, Request} from "koa";
+import { Method } from './method';
+import * as pathToRegexp from 'path-to-regexp';
 
-/**
- * 路由转发基类
- */
+export interface Options {
+    Name : string;
+    Array : boolean;
+    Check : RegExp|undefined;
+}
+
 export class Route {
 
     /**
-     * 资源名称
+     * 路径匹配规则
      */
-    protected name : string;
+    public rule:RegExp;
 
     /**
-     * 资源对象
+     * 配置选项
+     * @type {{}}
      */
-    protected resource : Resource;
+    public options:Array<Options> = [];
 
     /**
-     * 规则校验器
+     * 设置匹配规则
+     * @param {string} value
      */
-    protected pathRegexp:RegExp;
+    public set path(value:string){
+        this.rule = pathToRegexp(value);
+        let options = <string[]>this.rule.exec(value);
+        options.shift();
+        delete options['index'];
+        delete options['input'];
+        for(let option of options) {
+            let config: Options = {
+                Name: option.substr(1),
+                Array: false,
+                Check: undefined
+            };
+            let end = config.Name.substr(-1);
+            if (end === '+' || end === '?')
+                config.Name = config.Name.substr(0, config.Name.length - 1);
+            if (end === '+') config.Array = true;
+            this.options.push(config);
+        }
+    }
+
+    /**
+     * 设置校验规则
+     * @param { string } name
+     * @param { RegExp } rule
+     * @returns { Router }
+     */
+    public where(name:string, rule:RegExp){
+        for(let option of this.options){
+            if(option.Name !== name) continue;
+            option.Check = rule;
+        }
+        return this;
+    }
 
     /**
      * 请求方式
+     * @type {Method[]}
+     * @private
      */
-    protected method:HttpMethod;
+    public method : Array<Method>;
 
     /**
-     * 请求处理函数
+     * 请求处理接口
      */
-    protected action : Function;
-
-    /**
-     * 构造函数
-     * @param {string} name
-     * @param {Resource} resource
-     */
-    public constructor(name:string, resource:Resource){
-        this.name = name;
-        this.resource = resource;
-    }
-
-    /**
-     * 初始化路由
-     * @param {Function} action
-     * @param {HttpMethod} method
-     * @param {string} path
-     */
-    public init(action:Function, method:HttpMethod, path:string=''){
-        this.action = action;
-        this.method = method;
-        this.pathRegexp = pathToRegexp('/'+this.name+path);
-    }
-
-    /**
-     * 匹配请求参数
-     * @param {Application.Request} req
-     * @returns {boolean | string}
-     */
-    public regExp(req:Request):boolean|string{
-        if(req.method !== this.method)
-            return false;
-        let result = this.pathRegexp.exec(req.url);
-        if(result === null)
-            return false;
-        if(result[1] === undefined)
-            return true;
-        return result[1];
-    }
-
-    /**
-     * 执行会话
-     * @param {Application.Context} ctx
-     * @param {string | undefined} id
-     */
-    public exec(ctx:Context,id?:string){
-        this.action.apply(this.resource, arguments);
-    }
+    public action : Function;
 
 }
